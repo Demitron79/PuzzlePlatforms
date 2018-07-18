@@ -16,7 +16,18 @@ class PUZZLEPLATFORMS_API UMainMenu : public UMenuWidget
 protected:
 	virtual bool Initialize();
 
+public:
+
+	UMainMenu(const FObjectInitializer & ObjectInitialize);
+
+	void SetServerList(TArray<FString> ServerName);
+
+	void SelectIndex(uint32 Index);
+
 private:
+
+	TSubclassOf<class UUserWidget> ServerRowClass;
+
 	UPROPERTY(meta = (BindWidget))
 		class UButton* HostButton;
 
@@ -42,7 +53,7 @@ private:
 		class UWidget* JoinMenu;
 
 	UPROPERTY(meta = (BindWidget))
-		class UEditableTextBox* IPAddressField;
+		class UPanelWidget* ServerList;
 
 	UFUNCTION()
 		void HostServer();
@@ -60,4 +71,5 @@ private:
 	UFUNCTION()
 		void ExitPressed();
 
+	TOptional<uint32> SelectedIndex;
 };
