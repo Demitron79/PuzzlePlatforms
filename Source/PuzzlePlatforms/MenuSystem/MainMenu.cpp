@@ -24,14 +24,17 @@ bool UMainMenu::Initialize()
 	bool Success = Super::Initialize();
 	if (!Success) return false;
 
+	if (!ensure(DirectIPButton != nullptr)) return false;
+	DirectIPButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
+
+	if (!ensure(CancelDirectIPMenuButton != nullptr)) return false;
+	CancelDirectIPMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
+
+	if (!ensure(ConfirmDirectIPMenuButton != nullptr)) return false;
+	ConfirmDirectIPMenuButton->OnClicked.AddDynamic(this, &UMainMenu::DirectIPJoinServer);
+
 	if (!ensure(HostButton != nullptr)) return false;
-	HostButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
-
-	if (!ensure(CancelHostMenuButton != nullptr)) return false;
-	CancelHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
-
-	if (!ensure(ConfirmHostMenuButton != nullptr)) return false;
-	ConfirmHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+	HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
 
 	if (!ensure(JoinButton != nullptr)) return false;
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
@@ -104,6 +107,16 @@ void UMainMenu::UpdateChildren()
 		{
 			Row->Selected = (SelectedIndex.IsSet() && SelectedIndex.GetValue() == i);
 		}
+	}
+}
+
+void UMainMenu::DirectIPJoinServer()
+{
+	if (MenuInterface != nullptr)
+	{
+		if (!ensure(ServerHostName != nullptr)) return;
+		const FString Address = ServerHostName->GetText().ToString();
+			MenuInterface->DirectIPJoin(Address);
 	}
 }
 

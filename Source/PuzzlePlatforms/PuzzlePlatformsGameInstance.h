@@ -35,6 +35,9 @@ public:
 	UFUNCTION(Exec)
 		void Join (uint32 Index) override;
 
+	UFUNCTION(Exec)
+		void DirectIPJoin(const FString& Address);
+
 	void StartSession();
 
 	virtual void LoadMainMenu() override;

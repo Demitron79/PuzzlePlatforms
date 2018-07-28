@@ -46,6 +46,9 @@ private:
 		class UButton* JoinButton;
 
 	UPROPERTY(meta = (BindWidget))
+		class UButton* DirectIPButton;
+
+	UPROPERTY(meta = (BindWidget))
 		class UButton* ExitButton;
 
 	UPROPERTY(meta = (BindWidget))
@@ -70,10 +73,10 @@ private:
 		class UEditableTextBox* ServerHostName;
 
 	UPROPERTY(meta = (BindWidget))
-		class UButton* CancelHostMenuButton;
+		class UButton* CancelDirectIPMenuButton;
 
 	UPROPERTY(meta = (BindWidget))
-		class UButton* ConfirmHostMenuButton;
+		class UButton* ConfirmDirectIPMenuButton;
 
 	UPROPERTY(meta = (BindWidget))
 		class UPanelWidget* ServerList;
@@ -84,6 +87,8 @@ private:
 	UFUNCTION()
 		void JoinServer();
 
+	UFUNCTION()
+		void DirectIPJoinServer();
 
 	UFUNCTION()
 		void OpenJoinMenu();
